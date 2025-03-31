@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCatalog1._2.Data;
 using MovieCatalog1._2.Data.Models;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MovieCatalog1._2.Controllers
 {
@@ -124,7 +124,7 @@ namespace MovieCatalog1._2.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MovieExists(movie.Id))
+                    if (!MoviesExists(movie.Id))
                     {
                         return NotFound();
                     }
@@ -170,7 +170,7 @@ namespace MovieCatalog1._2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MovieExists(int id)
+        private bool MoviesExists(int id)
         {
             return _context.Movies.Any(e => e.Id == id);
         }
