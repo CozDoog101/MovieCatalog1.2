@@ -4,7 +4,6 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-MovieCatalog1._2-5ec73b39-6214-4c9f-b1d0-32d4a035957e</UserSecretsId>
     <RootNamespace>MovieCatalog1._2</RootNamespace>
   </PropertyGroup>
 
