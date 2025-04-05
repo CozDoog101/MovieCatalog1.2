@@ -1,74 +1,51 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MovieCatalog1._2.Data;
 using MovieCatalog1._2.Data.Models;
+using MovieCatalog1._2.Data;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace MovieCatalog1._2.Controllers
+namespace MovieCatalog.Controllers
 {
     public class MoviesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public MoviesController(ApplicationDbContext context)
+        public MoviesController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
-        // GET: Movies
         public async Task<IActionResult> Index()
         {
             return View(await _context.Movies.ToListAsync());
         }
 
-        // GET: Movies/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var movie = await _context.Movies
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (movie == null)
-            {
-                return NotFound();
-            }
-
+            var movie = await _context.Movies.FindAsync(id);
+            if (movie == null) return NotFound();
             return View(movie);
         }
 
-        // GET: Movies/Create
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Movies/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Genre,Year,Description,CreatedBy,Rating")] Movies movie, IFormFile CoverImageFile)
+        [Authorize]
+        public async Task<IActionResult> Create(Movies movie)
         {
             if (ModelState.IsValid)
             {
-                if (CoverImageFile != null)
-                {
-                    string fileName = Guid.NewGuid().ToString() + Path.GetExtension(CoverImageFile.FileName);
-                    string filePath = Path.Combine("wwwroot/images/movies", fileName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await CoverImageFile.CopyToAsync(stream);
-                    }
-
-                    movie.CoverImage = "/images/movies/" + fileName;
-                }
-
+                movie.CreatedBy = _userManager.GetUserName(User);
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -76,103 +53,50 @@ namespace MovieCatalog1._2.Controllers
             return View(movie);
         }
 
-        // GET: Movies/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [Authorize]
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var movie = await _context.Movies.FindAsync(id);
-            if (movie == null)
-            {
-                return NotFound();
-            }
+            if (movie == null || movie.CreatedBy != _userManager.GetUserName(User)) return NotFound();
             return View(movie);
         }
 
-        // POST: Movies/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Genre,Year,Description,CreatedBy,Rating,CoverImage")] Movies movie, IFormFile CoverImageFile)
+        [Authorize]
+        public async Task<IActionResult> Edit(Movies movie)
         {
-            if (id != movie.Id)
-            {
-                return NotFound();
-            }
+            var existingMovie = await _context.Movies.FindAsync(movie.Id);
+            if (existingMovie == null || existingMovie.CreatedBy != _userManager.GetUserName(User)) return NotFound();
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    if (CoverImageFile != null)
-                    {
-                        string fileName = Guid.NewGuid().ToString() + Path.GetExtension(CoverImageFile.FileName);
-                        string filePath = Path.Combine("wwwroot/images/movies", fileName);
+            existingMovie.Title = movie.Title;
+            existingMovie.Genre = movie.Genre;
+            existingMovie.Year = movie.Year;
+            existingMovie.Description = movie.Description;
 
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await CoverImageFile.CopyToAsync(stream);
-                        }
-
-                        movie.CoverImage = "/images/movies/" + fileName;
-                    }
-
-                    _context.Update(movie);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MoviesExists(movie.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(movie);
-        }
-
-        // GET: Movies/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var movie = await _context.Movies
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (movie == null)
-            {
-                return NotFound();
-            }
-
-            return View(movie);
-        }
-
-        // POST: Movies/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var movie = await _context.Movies.FindAsync(id);
-            if (movie != null)
-            {
-                _context.Movies.Remove(movie);
-                await _context.SaveChangesAsync();
-            }
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MoviesExists(int id)
+        [Authorize]
+        public async Task<IActionResult> Delete(int id)
         {
-            return _context.Movies.Any(e => e.Id == id);
+            var movie = await _context.Movies.FindAsync(id);
+            if (movie == null || movie.CreatedBy != _userManager.GetUserName(User)) return NotFound();
+            return View(movie);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var movie = await _context.Movies.FindAsync(id);
+            if (movie == null || movie.CreatedBy != _userManager.GetUserName(User)) return NotFound();
+
+            _context.Movies.Remove(movie);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
