@@ -1,60 +1,94 @@
 ﻿@model MovieCatalog1._2.Data.Models.Movies
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Movie Details";
 }
 
-<h1>Details</h1>
+<style>
+    body {
+        background: linear-gradient(135deg, #f06, #48c6ef);
+        background-attachment: fixed;
+        background-size: cover;
+        font-family: 'Arial', sans-serif;
+        color: #fff;
+    }
 
-<div>
-    <h4>Movies</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Genre)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Genre)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedBy)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CoverImage)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CoverImage)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    .details-container {
+        max-width: 800px;
+        margin: 50px auto;
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+        overflow: hidden;
+    }
+
+    .details-img {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .details-body {
+        padding: 25px;
+    }
+
+    .details-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #fff;
+    }
+
+    .details-info {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        color: #ccc;
+    }
+
+    .details-description {
+        font-size: 1rem;
+        color: #ddd;
+        margin-top: 15px;
+    }
+
+    .details-buttons {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .btn-custom {
+        background-color: #48c6ef;
+        border: none;
+        color: #000;
+        padding: 10px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+        .btn-custom:hover {
+            background-color: #3aaed6;
+            color: #fff;
+        }
+</style>
+
+<div class="details-container">
+    <img src="@Model.CoverImage" alt="@Model.Title" class="details-img" />
+    <div class="details-body">
+        <div class="details-title">@Model.Title</div>
+        <div class="details-info"><strong>Genre:</strong> @Model.Genre</div>
+        <div class="details-info"><strong>Year:</strong> @Model.Year</div>
+        <div class="details-info"><strong>Rating:</strong> @Model.Rating</div>
+        <div class="details-info"><strong>Created By:</strong> @Model.CreatedBy</div>
+        <div class="details-description">@Model.Description</div>
+
+        <div class="details-buttons">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-custom">Edit</a>
+            <a asp-action="Index" class="btn-custom">Back to Catalog</a>
+        </div>
+    </div>
 </div>

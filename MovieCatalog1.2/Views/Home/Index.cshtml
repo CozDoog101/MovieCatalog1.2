@@ -1,104 +1,319 @@
 ﻿@model IEnumerable<MovieCatalog1._2.Data.Models.Movies>
 
 @{
-    ViewData["Title"] = "Movie Catalog";
+    ViewBag.Title = "Home";
 }
 
-<style>
-    /* Basic layout styles */
-    .header {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-        .header h1 {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #333;
+@section Styles {
+    <style>
+        body {
+            background: linear-gradient(135deg, #f06, #48c6ef);
+            background-size: cover;
+            background-attachment: fixed;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
-    /* Movies container */
-    .movies-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        gap: 20px;
-    }
-
-    .movie-card {
-        position: relative;
-        width: 200px;
-        background-color: #fff;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-    }
-
-        .movie-card:hover {
-            transform: translateY(-10px);
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .movie-card img {
+        .custom-jumbotron {
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            color: #fff;
+            border-radius: 10px;
+            padding: 4rem 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .custom-btn {
+            background-color: #ff6600;
+            border: none;
+            color: #fff;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+            .custom-btn:hover {
+                background-color: #e65c00;
+                transform: scale(1.05);
+                text-decoration: none;
+            }
+
+        .slider-container {
+            margin-top: 40px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .slider-wrapper {
+            position: relative;
             width: 100%;
-            height: 300px;
-            object-fit: cover;
+            overflow: hidden;
+            padding: 0 60px;
         }
 
-    .movie-info {
-        padding: 10px;
-    }
+        .slider-track {
+            display: flex;
+            gap: 15px;
+            transition: transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+            will-change: transform;
+        }
+
+        .movie-card {
+            background-color: #111;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            flex: 0 0 200px;
+            height: 300px;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+            .movie-card:hover {
+                transform: translateY(-5px) scale(1.02);
+            }
+
+            .movie-card img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .movie-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: #fff;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .movie-card:hover .movie-info {
+            transform: translateY(0);
+        }
 
         .movie-info h5 {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin: 0;
+            font-size: 1rem;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .movie-info p {
-            margin: 5px 0;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            margin: 2px 0;
         }
 
-    /* Description text */
-    .description {
-        display: none;
-        font-size: 0.85rem;
-        color: #666;
-        padding-top: 10px;
-    }
+        .slider-container::before,
+        .slider-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            z-index: 2;
+            pointer-events: none;
+        }
 
-    .movie-card:hover .description {
-        display: block;
-    }
-</style>
+        .slider-container::before {
+            left: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.95) 0%, transparent 100%);
+        }
 
-<div class="container mt-4">
-    <div class="header">
-        <h1>Movie Catalog</h1>
+        .slider-container::after {
+            right: 0;
+            background: linear-gradient(to left, rgba(0,0,0,0.95) 0%, transparent 100%);
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-4 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mt-4 {
+            margin-top: 1.5rem;
+        }
+
+        .movie-link {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+}
+
+<div class="container">
+    <div class="custom-jumbotron">
+        <h1 class="display-3">Welcome to Movie Library</h1>
+        <p class="lead">Browse movies or log in to add your own!</p>
+        <hr class="my-4" />
+        <p>Explore our extensive collection and discover your next favorite film.</p>
+        <a class="btn custom-btn btn-lg" href="@Url.Action("Index", "Movies")">View Movies</a>
     </div>
 
-    <!-- Movies Grid -->
-    <div class="movies-grid">
-        @foreach (var movie in Model)
-        {
-            <div class="movie-card">
-                <img src="@movie.CoverImage" alt="@movie.Title" />
-                <div class="movie-info">
-                    <h5>@movie.Title</h5>
-                    <p>@movie.Genre</p>
-                    <p>@movie.Year</p>
-                    <p>Rating: @movie.Rating</p>
-                    <div class="description">
-                        <p>@movie.Description</p>
+    <div class="slider-container">
+        <div class="text-center mb-4">
+            <h2>Our Featured Movies</h2>
+        </div>
+
+        <div class="slider-wrapper">
+            <div class="slider-track" id="slider-track">
+                @foreach (var movie in Model)
+                {
+                    <div class="movie-card">
+                        <a class="movie-link" href="@Url.Action("Details", "Movies", new { id = movie.Id })">
+                            <img src="@movie.CoverImage" alt="@movie.Title" />
+                            <div class="movie-info">
+                                <h5>@movie.Title</h5>
+                                <p>@movie.Genre</p>
+                                <p>@movie.Year</p>
+                                <p>Rating: @movie.Rating</p>
+                            </div>
+                        </a>
                     </div>
-                </div>
+                }
+                @foreach (var movie in Model.Take(5))
+                {
+                    <div class="movie-card">
+                        <a class="movie-link" href="@Url.Action("Details", "Movies", new { id = movie.Id })">
+                            <img src="@movie.CoverImage" alt="@movie.Title" />
+                            <div class="movie-info">
+                                <h5>@movie.Title</h5>
+                                <p>@movie.Genre</p>
+                                <p>@movie.Year</p>
+                                <p>Rating: @movie.Rating</p>
+                            </div>
+                        </a>
+                    </div>
+                }
             </div>
-        }
+        </div>
     </div>
 
-    <!-- Create New Movie Button -->
-    <p class="mt-4">
-        <a class="btn btn-primary" asp-action="Create">Create New Movie</a>
+    <p class="mt-4 text-center">
+        <a class="btn custom-btn btn-lg" href="@Url.Action("Create", "Movies")">Create New Movie</a>
     </p>
 </div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.getElementById('slider-track');
+            const cards = document.querySelectorAll('.movie-card:not(.cloned)');
+
+            // Mark original cards to distinguish from clones
+            cards.forEach(card => card.classList.add('original'));
+
+            if (cards.length < 3) {
+                console.log("Not enough movies for slider");
+                return;
+            }
+
+            const cardWidth = cards[0].offsetWidth + 15;
+            let currentIndex = 0;
+            let isHovered = false;
+            const scrollInterval = 3000; // 3 seconds per slide
+            let isResetting = false;
+            let intervalId;
+
+            // Enhanced easing function
+            track.style.transition = 'transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1)';
+
+            function moveToNext() {
+                if (isHovered || isResetting) return;
+
+                currentIndex++;
+                track.style.transform = `translateX(-${currentIndex * cardWidth}px`;
+
+                // Start reset process when we're 3 items from the end
+                if (currentIndex >= cards.length - 3) {
+                    prepareReset();
+                }
+            }
+
+            function prepareReset() {
+                isResetting = true;
+
+                // Wait for current transition to complete
+                setTimeout(() => {
+                    // Calculate how much we've scrolled past the last original item
+                    const overflow = (currentIndex - (cards.length - 5)) * cardWidth;
+
+                    // Temporarily disable transition for instant repositioning
+                    track.style.transition = 'none';
+                    track.style.transform = `translateX(-${overflow}px`;
+                    void track.offsetWidth; // Force reflow
+
+                    // Re-enable transition
+                    track.style.transition = 'transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1)';
+                    currentIndex = Math.floor(overflow / cardWidth);
+                    isResetting = false;
+                }, 800); // Match transition duration
+            }
+
+            function startSlider() {
+                intervalId = setInterval(moveToNext, scrollInterval);
+            }
+
+            // Initialize slider
+            startSlider();
+
+            // Pause on hover
+            track.addEventListener('mouseenter', () => {
+                isHovered = true;
+                track.style.transition = 'transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1)';
+            });
+
+            track.addEventListener('mouseleave', () => {
+                isHovered = false;
+                track.style.transition = 'transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1)';
+            });
+
+            // Clean up
+            window.addEventListener('beforeunload', () => {
+                clearInterval(intervalId);
+            });
+
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                clearInterval(intervalId);
+                startSlider();
+            });
+
+            // Enhanced click handling for movie cards
+            document.querySelectorAll('.movie-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // If the click wasn't on a link specifically, navigate to the movie details
+                    if (e.target.tagName !== 'A') {
+                        const link = this.querySelector('a.movie-link');
+                        if (link) {
+                            window.location.href = link.href;
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}
