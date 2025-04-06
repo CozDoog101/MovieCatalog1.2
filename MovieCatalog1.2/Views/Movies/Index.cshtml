@@ -1,71 +1,147 @@
 ﻿@model IEnumerable<MovieCatalog1._2.Data.Models.Movies>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Movie Catalog";
 }
 
-<h1>Index</h1>
+<style>
+    /* Catalog header */
+    .catalog-header {
+        text-align: left;
+        margin-bottom: 30px;
+        color: #fff;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Genre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Year)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedBy)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rating)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CoverImage)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CoverImage)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        .catalog-header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+    /* Filter container styling */
+    .filter-container {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+        .filter-container .form-select,
+        .filter-container .form-control {
+            width: 200px;
+        }
+
+    /* Grid layout for movie cards: 5 per row on large screens */
+    .movie-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px;
+    }
+
+    {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    }
+
+    /* Movie card styling */
+    .movie-card {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+    }
+
+        .movie-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+    .card-body {
+        padding: 15px;
+        color: #fff;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        color: #ccc;
+    }
+</style>
+
+<div class="container mt-4">
+    <!-- Header -->
+    <div class="catalog-header">
+        <h1>Movie Catalog</h1>
+    </div>
+
+    <!-- Filter container: Genre filter and search bar -->
+    <div class="filter-container">
+        <select id="genreFilter" class="form-select">
+            <option value="">All Genres</option>
+            <option value="Action">Action</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Drama">Drama</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Romance">Romance</option>
+            <!-- Add more genres as needed -->
+        </select>
+        <input type="text" id="searchInput" class="form-control" placeholder="Search movies..." />
+    </div>
+
+    <!-- Movie Grid -->
+    <div class="movie-grid">
+        @foreach (var movie in Model)
+        {
+            <div class="movie-card" data-genre="@movie.Genre" data-title="@movie.Title">
+                <a href="@Url.Action("Details", "Movies", new { id = movie.Id })">
+                    <img src="@movie.CoverImage" alt="@movie.Title" />
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">@movie.Title</h5>
+                    <p class="card-text">@movie.Genre | @movie.Year</p>
+                    <p class="card-text">Rating: @movie.Rating</p>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Create New Movie Button -->
+    <div class="text-center mt-4">
+        <a class="btn btn-primary" asp-action="Create">Create New Movie</a>
+    </div>
+</div>
+
+<script>
+    // Filtering function that combines genre filter and search bar input
+    function filterMovies() {
+        var genreValue = document.getElementById('genreFilter').value.toLowerCase();
+        var searchValue = document.getElementById('searchInput').value.toLowerCase();
+        var cards = document.querySelectorAll('.movie-card');
+
+        cards.forEach(function(card) {
+            var cardGenre = card.getAttribute('data-genre').toLowerCase();
+            var cardTitle = card.getAttribute('data-title').toLowerCase();
+
+            var matchesGenre = genreValue === "" || cardGenre === genreValue;
+            var matchesSearch = searchValue === "" || cardTitle.indexOf(searchValue) !== -1;
+
+            card.style.display = (matchesGenre && matchesSearch) ? "block" : "none";
+        });
+    }
+
+    document.getElementById('genreFilter').addEventListener('change', filterMovies);
+    document.getElementById('searchInput').addEventListener('input', filterMovies);
+</script>

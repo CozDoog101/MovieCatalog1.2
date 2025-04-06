@@ -12,7 +12,7 @@ using MovieCatalog1._2.Data;
 namespace MovieCatalog1._2.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250331185439_SeedMovies")]
+    [Migration("20250405182110_SeedMovies")]
     partial class SeedMovies
     {
         /// <inheritdoc />
@@ -280,7 +280,7 @@ namespace MovieCatalog1._2.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CoverImage = "/images/movies/darkknight.jpg",
+                            CoverImage = "/images/movies/TheDarkKnight.jpg",
                             CreatedBy = "Admin",
                             Description = "Batman faces off against the Joker in a chaotic fight for Gotham.",
                             Genre = "Action",
@@ -291,13 +291,57 @@ namespace MovieCatalog1._2.Data.Migrations
                         new
                         {
                             Id = 3,
-                            CoverImage = "/images/movies/matrix.jpg",
+                            CoverImage = "/images/movies/TheMatrix.jpg",
                             CreatedBy = "Admin",
                             Description = "A computer hacker learns from mysterious rebels about the true nature of his reality.",
                             Genre = "Sci-Fi",
                             Rating = 8.6999999999999993,
                             Title = "The Matrix",
                             Year = 1999
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CoverImage = "/images/movies/interstellar.jpg",
+                            CreatedBy = "Admin",
+                            Description = "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+                            Genre = "Sci-Fi",
+                            Rating = 8.5999999999999996,
+                            Title = "Interstellar",
+                            Year = 2014
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CoverImage = "/images/movies/fightclub.jpg",
+                            CreatedBy = "Admin",
+                            Description = "An insomniac office worker and a devil-may-care soap maker form an underground fight club.",
+                            Genre = "Drama",
+                            Rating = 8.8000000000000007,
+                            Title = "Fight Club",
+                            Year = 1999
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CoverImage = "/images/movies/pulpfiction.jpg",
+                            CreatedBy = "Admin",
+                            Description = "The lives of two mob hitmen, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+                            Genre = "Crime",
+                            Rating = 8.9000000000000004,
+                            Title = "Pulp Fiction",
+                            Year = 1994
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CoverImage = "/images/movies/forrestgump.jpg",
+                            CreatedBy = "Admin",
+                            Description = "The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other history unfold through the perspective of an Alabama man with an IQ of 75.",
+                            Genre = "Drama",
+                            Rating = 8.8000000000000007,
+                            Title = "Forrest Gump",
+                            Year = 1994
                         });
                 });
 

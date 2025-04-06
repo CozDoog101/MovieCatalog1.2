@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieCatalog1._2.Data;
 
@@ -11,9 +12,11 @@ using MovieCatalog1._2.Data;
 namespace MovieCatalog1._2.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250405200255_AddNewMovies")]
+    partial class AddNewMovies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -442,13 +445,13 @@ namespace MovieCatalog1._2.Data.Migrations
                         new
                         {
                             Id = 17,
-                            CoverImage = "/images/movies/thedeparted.jpg",
+                            CoverImage = "/images/movies/shawshank.jpg",
                             CreatedBy = "Admin",
-                            Description = "An undercover cop and a mole in the police attempt to identify each other while infiltrating an Irish gang in Boston.",
-                            Genre = "Crime",
-                            Rating = 8.5,
-                            Title = "The Departed",
-                            Year = 2006
+                            Description = "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+                            Genre = "Drama",
+                            Rating = 9.3000000000000007,
+                            Title = "The Shawshank Redemption",
+                            Year = 1994
                         },
                         new
                         {
