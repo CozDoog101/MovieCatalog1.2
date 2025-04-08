@@ -100,7 +100,12 @@
             <option value="Drama">Drama</option>
             <option value="Thriller">Thriller</option>
             <option value="Romance">Romance</option>
-            <!-- Add more genres as needed -->
+            <option value="Sci-fi">Sci-fi</option>
+            <option value="Crime">Crime</option>
+            <option value="Animation">Animation</option>
+            <option value="Mystery">Mystery</option>
+            <option value="Adventure">Adventure</option>
+
         </select>
         <input type="text" id="searchInput" class="form-control" placeholder="Search movies..." />
     </div>
@@ -122,15 +127,11 @@
         }
     </div>
 
-    <!-- Create New Movie Button -->
-    <div class="text-center mt-4">
-        
 
     </div>
 </div>
 
 <script>
-    // Filtering function that combines genre filter and search bar input
     function filterMovies() {
         var genreValue = document.getElementById('genreFilter').value.toLowerCase();
         var searchValue = document.getElementById('searchInput').value.toLowerCase();
