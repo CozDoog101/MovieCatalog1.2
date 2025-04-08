@@ -64,7 +64,7 @@ namespace MovieCatalog1._2.Data
                     Description = "Batman faces off against the Joker in a chaotic fight for Gotham.",
                     CreatedBy = "Admin",
                     Rating = 9.0,
-                    CoverImage = "/images/movies/THeDarkNight.jpg"
+                    CoverImage = "/images/movies/TheDarkNight.jpg"
                 },
                 new Movies
                 {

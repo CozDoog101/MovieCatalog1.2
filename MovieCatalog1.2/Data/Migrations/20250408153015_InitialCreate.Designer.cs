@@ -12,8 +12,8 @@ using MovieCatalog1._2.Data;
 namespace MovieCatalog1._2.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250405182110_SeedMovies")]
-    partial class SeedMovies
+    [Migration("20250408153015_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -280,7 +280,7 @@ namespace MovieCatalog1._2.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CoverImage = "/images/movies/TheDarkKnight.jpg",
+                            CoverImage = "/images/movies/TheDarkNight.jpg",
                             CreatedBy = "Admin",
                             Description = "Batman faces off against the Joker in a chaotic fight for Gotham.",
                             Genre = "Action",
@@ -342,6 +342,226 @@ namespace MovieCatalog1._2.Data.Migrations
                             Rating = 8.8000000000000007,
                             Title = "Forrest Gump",
                             Year = 1994
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CoverImage = "/images/movies/thegodfather.jpg",
+                            CreatedBy = "Admin",
+                            Description = "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+                            Genre = "Crime",
+                            Rating = 9.1999999999999993,
+                            Title = "The Godfather",
+                            Year = 1972
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CoverImage = "/images/movies/shawshank.jpg",
+                            CreatedBy = "Admin",
+                            Description = "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+                            Genre = "Drama",
+                            Rating = 9.3000000000000007,
+                            Title = "The Shawshank Redemption",
+                            Year = 1994
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CoverImage = "/images/movies/schindlerslist.jpg",
+                            CreatedBy = "Admin",
+                            Description = "In German-occupied Poland during World War II, Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.",
+                            Genre = "History",
+                            Rating = 9.0,
+                            Title = "Schindler's List",
+                            Year = 1993
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CoverImage = "/images/movies/gladiator.jpg",
+                            CreatedBy = "Admin",
+                            Description = "A former Roman General sets out to exact vengeance against the corrupt emperor who murdered his family and sent him into slavery.",
+                            Genre = "Action",
+                            Rating = 8.5,
+                            Title = "Gladiator",
+                            Year = 2000
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CoverImage = "/images/movies/silenceofthelambs.jpg",
+                            CreatedBy = "Admin",
+                            Description = "A young FBI cadet seeks the advice of an imprisoned cannibal killer to help catch another serial killer.",
+                            Genre = "Thriller",
+                            Rating = 8.5999999999999996,
+                            Title = "The Silence of the Lambs",
+                            Year = 1991
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CoverImage = "/images/movies/savingprivateryan.jpg",
+                            CreatedBy = "Admin",
+                            Description = "Following the Normandy landings, a group of U.S. soldiers must find and bring home a paratrooper whose brothers have been killed in action.",
+                            Genre = "War",
+                            Rating = 8.5999999999999996,
+                            Title = "Saving Private Ryan",
+                            Year = 1998
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CoverImage = "/images/movies/lionking.jpg",
+                            CreatedBy = "Admin",
+                            Description = "Lion prince Simba and his father are targeted by his bitter uncle, who wants to ascend the throne himself.",
+                            Genre = "Animation",
+                            Rating = 8.5,
+                            Title = "The Lion King",
+                            Year = 1994
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CoverImage = "/images/movies/prestige.jpg",
+                            CreatedBy = "Admin",
+                            Description = "Two magicians engage in a bitter rivalry, each trying to best the other with their tricks and illusions.",
+                            Genre = "Mystery",
+                            Rating = 8.5,
+                            Title = "The Prestige",
+                            Year = 2006
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CoverImage = "/images/movies/avatar.jpg",
+                            CreatedBy = "Admin",
+                            Description = "A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.",
+                            Genre = "Sci-Fi",
+                            Rating = 7.7999999999999998,
+                            Title = "Avatar",
+                            Year = 2009
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CoverImage = "/images/movies/thedeparted.jpg",
+                            CreatedBy = "Admin",
+                            Description = "An undercover cop and a mole in the police attempt to identify each other while infiltrating an Irish gang in Boston.",
+                            Genre = "Crime",
+                            Rating = 8.5,
+                            Title = "The Departed",
+                            Year = 2006
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CoverImage = "/images/movies/shutterisland.jpg",
+                            CreatedBy = "Admin",
+                            Description = "A U.S. Marshal investigates the disappearance of a murderer who escaped from a mental institution.",
+                            Genre = "Thriller",
+                            Rating = 8.0999999999999996,
+                            Title = "Shutter Island",
+                            Year = 2010
+                        },
+                        new
+                        {
+                            Id = 19,
+                            CoverImage = "/images/movies/revenant.jpg",
+                            CreatedBy = "Admin",
+                            Description = "A frontiersman on a quest for survival and revenge against those who left him for dead.",
+                            Genre = "Adventure",
+                            Rating = 8.0,
+                            Title = "The Revenant",
+                            Year = 2015
+                        },
+                        new
+                        {
+                            Id = 20,
+                            CoverImage = "/images/movies/lalaland.jpg",
+                            CreatedBy = "Admin",
+                            Description = "A jazz musician and an aspiring actress fall in love, but their ambitions threaten to tear them apart.",
+                            Genre = "Romance",
+                            Rating = 8.0,
+                            Title = "La La Land",
+                            Year = 2016
+                        },
+                        new
+                        {
+                            Id = 21,
+                            CoverImage = "/images/movies/grandbudapest.jpg",
+                            CreatedBy = "Admin",
+                            Description = "The adventures of a legendary concierge at a famous European hotel between the wars.",
+                            Genre = "Comedy",
+                            Rating = 8.0999999999999996,
+                            Title = "The Grand Budapest Hotel",
+                            Year = 2014
+                        },
+                        new
+                        {
+                            Id = 22,
+                            CoverImage = "/images/movies/gonegirl.jpg",
+                            CreatedBy = "Admin",
+                            Description = "A man becomes the prime suspect in the disappearance of his wife, unraveling secrets along the way.",
+                            Genre = "Mystery",
+                            Rating = 8.0999999999999996,
+                            Title = "Gone Girl",
+                            Year = 2014
+                        },
+                        new
+                        {
+                            Id = 23,
+                            CoverImage = "/images/movies/her.jpg",
+                            CreatedBy = "Admin",
+                            Description = "A man develops a romantic relationship with an artificial intelligence system.",
+                            Genre = "Romance",
+                            Rating = 8.0,
+                            Title = "Her",
+                            Year = 2013
+                        },
+                        new
+                        {
+                            Id = 24,
+                            CoverImage = "/images/movies/bladerunner2049.jpg",
+                            CreatedBy = "Admin",
+                            Description = "A new blade runner unearths a long-buried secret that could plunge what's left of society into chaos.",
+                            Genre = "Sci-Fi",
+                            Rating = 8.0,
+                            Title = "Blade Runner 2049",
+                            Year = 2017
+                        },
+                        new
+                        {
+                            Id = 25,
+                            CoverImage = "/images/movies/django.jpg",
+                            CreatedBy = "Admin",
+                            Description = "A freed slave sets out to rescue his wife from a brutal plantation owner.",
+                            Genre = "Western",
+                            Rating = 8.4000000000000004,
+                            Title = "Django Unchained",
+                            Year = 2012
+                        },
+                        new
+                        {
+                            Id = 26,
+                            CoverImage = "/images/movies/martian.jpg",
+                            CreatedBy = "Admin",
+                            Description = "An astronaut is stranded on Mars and must use his ingenuity to survive while awaiting rescue.",
+                            Genre = "Sci-Fi",
+                            Rating = 8.0,
+                            Title = "The Martian",
+                            Year = 2015
+                        },
+                        new
+                        {
+                            Id = 27,
+                            CoverImage = "/images/movies/madmax.jpg",
+                            CreatedBy = "Admin",
+                            Description = "In a post-apocalyptic wasteland, Max teams up with a rebel warrior to escape a tyrannical warlord.",
+                            Genre = "Action",
+                            Rating = 8.0999999999999996,
+                            Title = "Mad Max: Fury Road",
+                            Year = 2015
                         });
                 });
 

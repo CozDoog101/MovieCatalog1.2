@@ -277,7 +277,7 @@ namespace MovieCatalog1._2.Data.Migrations
                         new
                         {
                             Id = 2,
-                            CoverImage = "/images/movies/THeDarkNight.jpg",
+                            CoverImage = "/images/movies/TheDarkNight.jpg",
                             CreatedBy = "Admin",
                             Description = "Batman faces off against the Joker in a chaotic fight for Gotham.",
                             Genre = "Action",

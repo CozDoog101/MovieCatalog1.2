@@ -7,23 +7,42 @@
 namespace MovieCatalog1._2.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddNewMovies : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.UpdateData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 2,
-                column: "CoverImage",
-                value: "/images/movies/THeDarkNight.jpg");
+            migrationBuilder.CreateTable(
+                name: "Movies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rating = table.Column<double>(type: "float", nullable: false),
+                    CoverImage = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Movies", x => x.Id);
+                });
 
             migrationBuilder.InsertData(
                 table: "Movies",
                 columns: new[] { "Id", "CoverImage", "CreatedBy", "Description", "Genre", "Rating", "Title", "Year" },
                 values: new object[,]
                 {
+                    { 1, "/images/movies/inception.jpg", "Admin", "A mind-bending thriller about dreams within dreams.", "Sci-Fi", 8.8000000000000007, "Inception", 2010 },
+                    { 2, "/images/movies/TheDarkNight.jpg", "Admin", "Batman faces off against the Joker in a chaotic fight for Gotham.", "Action", 9.0, "The Dark Knight", 2008 },
+                    { 3, "/images/movies/TheMatrix.jpg", "Admin", "A computer hacker learns from mysterious rebels about the true nature of his reality.", "Sci-Fi", 8.6999999999999993, "The Matrix", 1999 },
+                    { 4, "/images/movies/interstellar.jpg", "Admin", "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.", "Sci-Fi", 8.5999999999999996, "Interstellar", 2014 },
+                    { 5, "/images/movies/fightclub.jpg", "Admin", "An insomniac office worker and a devil-may-care soap maker form an underground fight club.", "Drama", 8.8000000000000007, "Fight Club", 1999 },
+                    { 6, "/images/movies/pulpfiction.jpg", "Admin", "The lives of two mob hitmen, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.", "Crime", 8.9000000000000004, "Pulp Fiction", 1994 },
+                    { 7, "/images/movies/forrestgump.jpg", "Admin", "The presidencies of Kennedy and Johnson, the events of Vietnam, Watergate, and other history unfold through the perspective of an Alabama man with an IQ of 75.", "Drama", 8.8000000000000007, "Forrest Gump", 1994 },
                     { 8, "/images/movies/thegodfather.jpg", "Admin", "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.", "Crime", 9.1999999999999993, "The Godfather", 1972 },
                     { 9, "/images/movies/shawshank.jpg", "Admin", "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.", "Drama", 9.3000000000000007, "The Shawshank Redemption", 1994 },
                     { 10, "/images/movies/schindlerslist.jpg", "Admin", "In German-occupied Poland during World War II, Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.", "History", 9.0, "Schindler's List", 1993 },
@@ -33,7 +52,7 @@ namespace MovieCatalog1._2.Data.Migrations
                     { 14, "/images/movies/lionking.jpg", "Admin", "Lion prince Simba and his father are targeted by his bitter uncle, who wants to ascend the throne himself.", "Animation", 8.5, "The Lion King", 1994 },
                     { 15, "/images/movies/prestige.jpg", "Admin", "Two magicians engage in a bitter rivalry, each trying to best the other with their tricks and illusions.", "Mystery", 8.5, "The Prestige", 2006 },
                     { 16, "/images/movies/avatar.jpg", "Admin", "A paraplegic Marine dispatched to the moon Pandora on a unique mission becomes torn between following his orders and protecting the world he feels is his home.", "Sci-Fi", 7.7999999999999998, "Avatar", 2009 },
-                    { 17, "/images/movies/shawshank.jpg", "Admin", "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.", "Drama", 9.3000000000000007, "The Shawshank Redemption", 1994 },
+                    { 17, "/images/movies/thedeparted.jpg", "Admin", "An undercover cop and a mole in the police attempt to identify each other while infiltrating an Irish gang in Boston.", "Crime", 8.5, "The Departed", 2006 },
                     { 18, "/images/movies/shutterisland.jpg", "Admin", "A U.S. Marshal investigates the disappearance of a murderer who escaped from a mental institution.", "Thriller", 8.0999999999999996, "Shutter Island", 2010 },
                     { 19, "/images/movies/revenant.jpg", "Admin", "A frontiersman on a quest for survival and revenge against those who left him for dead.", "Adventure", 8.0, "The Revenant", 2015 },
                     { 20, "/images/movies/lalaland.jpg", "Admin", "A jazz musician and an aspiring actress fall in love, but their ambitions threaten to tear them apart.", "Romance", 8.0, "La La Land", 2016 },
@@ -50,112 +69,8 @@ namespace MovieCatalog1._2.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 8);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 9);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 10);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 11);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 12);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 13);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 14);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 15);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 16);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 17);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 18);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 19);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 20);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 21);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 22);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 23);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 24);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 25);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 26);
-
-            migrationBuilder.DeleteData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 27);
-
-            migrationBuilder.UpdateData(
-                table: "Movies",
-                keyColumn: "Id",
-                keyValue: 2,
-                column: "CoverImage",
-                value: "/images/movies/TheDarkKnight.jpg");
+            migrationBuilder.DropTable(
+                name: "Movies");
         }
     }
 }
