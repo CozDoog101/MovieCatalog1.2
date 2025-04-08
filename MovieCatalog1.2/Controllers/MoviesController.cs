@@ -74,6 +74,7 @@ namespace MovieCatalog.Controllers
             existingMovie.Year = movie.Year;
             existingMovie.Rating = movie.Rating;
             existingMovie.Description = movie.Description;
+            existingMovie.CoverImage = movie.CoverImage;
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
