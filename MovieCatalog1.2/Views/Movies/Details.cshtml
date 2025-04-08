@@ -83,11 +83,15 @@
         <div class="details-info"><strong>Genre:</strong> @Model.Genre</div>
         <div class="details-info"><strong>Year:</strong> @Model.Year</div>
         <div class="details-info"><strong>Rating:</strong> @Model.Rating</div>
-        <div class="details-info"><strong>Created By:</strong> @Model.CreatedBy</div>
         <div class="details-description">@Model.Description</div>
 
         <div class="details-buttons">
-            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-custom">Edit</a>
+            @if (User.Identity.IsAuthenticated && User.Identity.Name == Model.CreatedBy)
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn-custom">Edit</a>
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn-custom">Delete</a>
+            }
+
             <a asp-action="Index" class="btn-custom">Back to Catalog</a>
         </div>
     </div>

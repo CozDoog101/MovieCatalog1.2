@@ -120,7 +120,11 @@
 
     <!-- Create New Movie Button -->
     <div class="text-center mt-4">
-        <a class="btn btn-primary" asp-action="Create">Create New Movie</a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a class="btn btn-primary" asp-action="Create">Create New Movie</a>
+        }
+
     </div>
 </div>
 

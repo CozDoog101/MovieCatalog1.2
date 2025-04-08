@@ -213,7 +213,10 @@
     </div>
 
     <p class="mt-4 text-center">
-        <a class="btn custom-btn btn-lg" href="@Url.Action("Create", "Movies")">Create New Movie</a>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <a class="btn custom-btn btn-lg" href="@Url.Action("Create", "Movies")">Create New Movie</a>
+        }
     </p>
 </div>
 
