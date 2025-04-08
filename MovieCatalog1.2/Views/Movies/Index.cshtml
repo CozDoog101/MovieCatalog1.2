@@ -5,7 +5,6 @@
 }
 
 <style>
-    /* Catalog header */
     .catalog-header {
         text-align: left;
         margin-bottom: 30px;
@@ -17,7 +16,6 @@
             font-weight: bold;
         }
 
-    /* Filter container styling */
     .filter-container {
         display: flex;
         justify-content: flex-end;
@@ -30,7 +28,6 @@
             width: 200px;
         }
 
-    /* Grid layout for movie cards: 5 per row on large screens */
     .movie-grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
@@ -43,7 +40,6 @@
 
     }
 
-    /* Movie card styling */
     .movie-card {
         background-color: rgba(0, 0, 0, 0.8);
         border-radius: 10px;
@@ -82,12 +78,10 @@
 </style>
 
 <div class="container mt-4">
-    <!-- Header -->
     <div class="catalog-header">
         <h1>Movie Catalog</h1>
     </div>
 
-    <!-- Filter container: Genre filter and search bar -->
     <div class="filter-container">
         @if (User.Identity.IsAuthenticated)
         {
@@ -100,12 +94,10 @@
             <option value="Drama">Drama</option>
             <option value="Thriller">Thriller</option>
             <option value="Romance">Romance</option>
-            <!-- Add more genres as needed -->
         </select>
         <input type="text" id="searchInput" class="form-control" placeholder="Search movies..." />
     </div>
 
-    <!-- Movie Grid -->
     <div class="movie-grid">
         @foreach (var movie in Model)
         {
@@ -122,7 +114,6 @@
         }
     </div>
 
-    <!-- Create New Movie Button -->
     <div class="text-center mt-4">
         
 
@@ -130,7 +121,6 @@
 </div>
 
 <script>
-    // Filtering function that combines genre filter and search bar input
     function filterMovies() {
         var genreValue = document.getElementById('genreFilter').value.toLowerCase();
         var searchValue = document.getElementById('searchInput').value.toLowerCase();
