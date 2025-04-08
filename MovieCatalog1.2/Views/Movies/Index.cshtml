@@ -89,6 +89,10 @@
 
     <!-- Filter container: Genre filter and search bar -->
     <div class="filter-container">
+        @if (User.Identity.IsAuthenticated)
+        {
+                <a class="btn btn-primary" asp-action="Create">Create New Movie</a>
+        }
         <select id="genreFilter" class="form-select">
             <option value="">All Genres</option>
             <option value="Action">Action</option>
@@ -120,10 +124,7 @@
 
     <!-- Create New Movie Button -->
     <div class="text-center mt-4">
-        @if (User.Identity.IsAuthenticated)
-        {
-            <a class="btn btn-primary" asp-action="Create">Create New Movie</a>
-        }
+        
 
     </div>
 </div>

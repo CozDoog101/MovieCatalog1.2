@@ -72,6 +72,7 @@ namespace MovieCatalog.Controllers
             existingMovie.Title = movie.Title;
             existingMovie.Genre = movie.Genre;
             existingMovie.Year = movie.Year;
+            existingMovie.Rating = movie.Rating;
             existingMovie.Description = movie.Description;
 
             await _context.SaveChangesAsync();
