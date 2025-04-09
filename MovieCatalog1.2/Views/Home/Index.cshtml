@@ -226,7 +226,6 @@
             const track = document.getElementById('slider-track');
             const cards = document.querySelectorAll('.movie-card:not(.cloned)');
 
-            // Mark original cards to distinguish from clones
             cards.forEach(card => card.classList.add('original'));
 
             if (cards.length < 3) {
@@ -237,11 +236,10 @@
             const cardWidth = cards[0].offsetWidth + 15;
             let currentIndex = 0;
             let isHovered = false;
-            const scrollInterval = 3000; // 3 seconds per slide
+            const scrollInterval = 3000; 
             let isResetting = false;
             let intervalId;
 
-            // Enhanced easing function
             track.style.transition = 'transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1)';
 
             function moveToNext() {
@@ -250,7 +248,6 @@
                 currentIndex++;
                 track.style.transform = `translateX(-${currentIndex * cardWidth}px`;
 
-                // Start reset process when we're 3 items from the end
                 if (currentIndex >= cards.length - 3) {
                     prepareReset();
                 }
@@ -259,31 +256,25 @@
             function prepareReset() {
                 isResetting = true;
 
-                // Wait for current transition to complete
                 setTimeout(() => {
-                    // Calculate how much we've scrolled past the last original item
                     const overflow = (currentIndex - (cards.length - 5)) * cardWidth;
 
-                    // Temporarily disable transition for instant repositioning
                     track.style.transition = 'none';
                     track.style.transform = `translateX(-${overflow}px`;
                     void track.offsetWidth; // Force reflow
 
-                    // Re-enable transition
                     track.style.transition = 'transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1)';
                     currentIndex = Math.floor(overflow / cardWidth);
                     isResetting = false;
-                }, 800); // Match transition duration
+                }, 800); 
             }
 
             function startSlider() {
                 intervalId = setInterval(moveToNext, scrollInterval);
             }
 
-            // Initialize slider
             startSlider();
 
-            // Pause on hover
             track.addEventListener('mouseenter', () => {
                 isHovered = true;
                 track.style.transition = 'transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1)';
@@ -294,21 +285,17 @@
                 track.style.transition = 'transform 0.8s cubic-bezier(0.22, 0.61, 0.36, 1)';
             });
 
-            // Clean up
             window.addEventListener('beforeunload', () => {
                 clearInterval(intervalId);
             });
 
-            // Handle window resize
             window.addEventListener('resize', () => {
                 clearInterval(intervalId);
                 startSlider();
             });
 
-            // Enhanced click handling for movie cards
             document.querySelectorAll('.movie-card').forEach(card => {
                 card.addEventListener('click', function(e) {
-                    // If the click wasn't on a link specifically, navigate to the movie details
                     if (e.target.tagName !== 'A') {
                         const link = this.querySelector('a.movie-link');
                         if (link) {
